@@ -1,0 +1,16 @@
+﻿<Application
+    x:Class="ApplicationMVVM.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vms="clr-namespace:ApplicationMVVM.ViewModels"
+    xmlns:vws="clr-namespace:ApplicationMVVM.Views"
+    StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type vms:DocInteractionViewModel}">
+            <vws:DocInteractionView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:TaskInteractionViewModel}">
+            <vws:TaskInteractionView />
+        </DataTemplate>
+    </Application.Resources>
+</Application>

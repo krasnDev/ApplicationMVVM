@@ -1,0 +1,60 @@
+﻿<Window
+    x:Class="ApplicationMVVM.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vms="clr-namespace:ApplicationMVVM.ViewModels"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <vms:MainWindowViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Command="{Binding AddDocumentCommand}" Content="Добавить документ" />
+        <Button
+            Grid.Column="1"
+            Command="{Binding AddTaskCommand}"
+            Content="Добавить задачу" />
+        <Button
+            Grid.Column="2"
+            Command="{Binding EditCommand}"
+            Content="Редактировать" />
+        <ListView
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            ItemsSource="{Binding Objects}"
+            SelectedItem="{Binding SelectedObject}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="50"
+                        DisplayMemberBinding="{Binding Path=Id}"
+                        Header="ID" />
+                    <GridViewColumn
+                        Width="300"
+                        DisplayMemberBinding="{Binding Path=Name}"
+                        Header="Название" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding Path=DisplayType}"
+                        Header="Тип" />
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
+
+

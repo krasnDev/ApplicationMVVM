@@ -1,0 +1,102 @@
+﻿<UserControl
+    x:Class="ApplicationMVVM.Views.DocInteractionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:Shared.Converters;assembly=Shared"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="White"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <utils:BooleanToVisibilityConverter x:Key="BoolenToVisibility" FalseIsCollapsed="True" />
+        <utils:BooleanToVisibilityConverter
+            x:Key="InverseBoolenToVisibility"
+            FalseIsCollapsed="True"
+            IsInverse="True" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Label
+            Margin="5"
+            Content="Идентификатор:"
+            Visibility="{Binding IsCreation, Converter={StaticResource InverseBoolenToVisibility}}" />
+        <Label
+            Grid.Row="1"
+            Margin="5"
+            Content="Наименование:" />
+        <Label
+            Grid.Row="2"
+            Margin="5"
+            Content="Цифровая подпись:" />
+        <GroupBox
+            Grid.Row="3"
+            Grid.ColumnSpan="3"
+            MinHeight="200"
+            Header="Текст документа">
+            <TextBox
+                Grid.Row="3"
+                Grid.ColumnSpan="3"
+                AcceptsReturn="True"
+                IsReadOnly="{Binding IsReadOnly}"
+                Text="{Binding Document.Body}"
+                TextWrapping="Wrap" />
+        </GroupBox>
+
+
+        <TextBox
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="5"
+            VerticalAlignment="Center"
+            IsReadOnly="True"
+            Text="{Binding Document.Id, Mode=OneWay}"
+            Visibility="{Binding IsCreation, Converter={StaticResource InverseBoolenToVisibility}}" />
+
+        <TextBox
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="5"
+            VerticalAlignment="Center"
+            IsReadOnly="{Binding IsReadOnly}"
+            Text="{Binding Document.Name}" />
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5"
+            VerticalAlignment="Center"
+            IsReadOnly="True"
+            Text="{Binding Document.Guid, TargetNullValue=''}" />
+        <Button
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="5"
+            Command="{Binding SubscribeCommand}"
+            Content="Подписать" />
+        <Button
+            Grid.Row="4"
+            Margin="5"
+            Content="Закрыть"
+            IsCancel="True" />
+        <Button
+            Grid.Row="4"
+            Grid.Column="2"
+            Margin="5"
+            Command="{Binding AddCommand}"
+            Content="Добавить в список"
+            Visibility="{Binding IsCreation, Converter={StaticResource BoolenToVisibility}}" />
+    </Grid>
+</UserControl>
